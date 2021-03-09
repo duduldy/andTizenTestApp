@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="utf-8"/>
+    <meta name="description" content="HeartRateMonitor"/>
+    <title>Heart Rate Monitor</title>
+    <link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.css" />
+    <link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)"
+          href="lib/tau/wearable/theme/default/tau.circle.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+
+<body>
+
+    <div class="ui-page" id="main">
+        <div class="ui-header">
+            <h2 class="ui-title">센서 테이터</h2>
+        </div>
+        <div class="ui-content">
+	        <div class="ui-content-gyro">
+	        	<h2 class="value-title">자이로스코프</h2>
+	            <div id="gyro-value-timeStamp"></div>
+	            <div id="gyro-value-x"></div>
+	            <div id="gyro-value-y"></div>
+	            <div id="gyro-value-z"></div>
+	        </div>
+	        <div class="ui-content-acc">
+	        	<h2 class="value-title">가속도</h2>
+	            <div id="acc-value-timeStamp"></div>
+	            <div id="acc-value-x"></div><!-- 0. 소수점 19자리 -->
+	            <div id="acc-value-y"></div>
+	            <div id="acc-value-z"></div>
+	        </div>
+        </div>
+        <div class="btn-left" id="btn-start">
+        	<div class="btn-txt">재<br/>시<br/>작</div>
+        </div>
+        <div class="btn-right" id="btn-end">
+        	<div class="btn-txt">중<br/>지</div>
+        </div>
+        <div class="ui-footer">
+        </div>
+    </div>
+
+  <script src="./lib/tau/wearable/js/tau.js"></script>
+  <script src="./js/core/core.js" data-main="./js/app.js"></script>
+
+</body>
+</html>
