@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/andTizenTestApp" version="1.0.12" viewmodes="maximized">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/andTizenTestApp" version="1.0.12" viewmodes="maximized">
+	<access origin="http://websocket.org" subdomains="true"/>
+	<access origin="*" subdomains="true" />
+	<!-- <access origin="ws://www.andTizenTestApp.com" subdomains="true"/> -->
     <tizen:application id="TfgvkhmVMw.andTizenTestApp" package="TfgvkhmVMw" required_version="2.3.1"/>
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.all"/>
+    <feature name="http://tizen.org/feature/sensor.gyroscope"/>
+    <feature name="http://tizen.org/feature/sensor.accelerometer"/>
+    <feature name="http://tizen.org/feature/network.internet"/>
     <icon src="icon.png"/>
     <name>andTizenTestApp</name>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:privilege name="http://tizen.org/privilege/bluetooth"/>
     <tizen:privilege name="http://tizen.org/privilege/healthinfo"/>
-    <tizen:profile name="wearable"/>
-    <!-- <tizen:setting background-support="disable" encryption="disable" hwkey-event="enable"/> -->
-    <!-- 백그라운드 실행 옵션 변경 -->
-    <tizen:setting background-support="enable" encryption="disable" hwkey-event="enable"/>
-    <!-- cpu 절전모드 해제 -->
     <tizen:privilege name="http://tizen.org/privilege/power"/>
+    <tizen:profile name="wearable"/>
+    <tizen:setting background-support="enable" encryption="disable" hwkey-event="enable"/>
 </widget>

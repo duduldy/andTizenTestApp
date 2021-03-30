@@ -292,6 +292,68 @@ define({
             return capability;
         }
         
+ // ---------------------------- 데이터 보내기
+
+        var rowFlag = 400; // 400줄 부터 다음 파일로
+        var rowCnt = 0;
+        var fileName = 0;
+		function webSocketLog(msg) {
+
+			if(consoleLog) console.log(" in webSocketLog ");
+			console.log(" in webSocketLog ");
+			
+			// ws : http, wss : https
+			// 'wss://html5labs-interop.cloudapp.net:443/echo';
+			var webSocket = new WebSocket('ws://172.30.1.60:8080/socket');
+
+			/*console.log(" =============== webSocket Info =============== ");
+			console.log(" binaryType : "+webSocket.binaryType);
+			console.log(" extensions : "+webSocket.extensions);
+			console.log(" protocol : "+webSocket.protocol);
+			console.log(" prototype : "+webSocket.prototype);
+			console.log(" url : "+webSocket.url);
+			console.log(" ============================================== ");*/
+
+			var sendTime = msg.split(',')[1]; // timeStamp / 커넥션 구분
+			
+			console.log(" webSocket.onopen ");
+			webSocket.onopen = function (e) {
+				console.log('[open] '+sendTime+' - 커넥션이 만들어졌습니다. ');
+				
+				// row 제한 새 파일 생성
+				rowCnt++;
+				if(rowCnt > rowFlag) {
+					rowCnt = 0;
+					fileName++;
+				}
+				webSocket.send(fileName+',usrID,'+msg);
+			};
+
+			console.log(" webSocket.onmessage ");
+			webSocket.onmessage = function(event) {
+				var getTime = event.data;
+				console.log('[message] '+sendTime+' - 서버로부터 전송받은 데이터 : '+getTime);
+				// 소켓 close
+				//console.log(" webSocket.readyState "+sendTime+'/'+getTime);
+				if (sendTime == getTime) {
+					console.log('[close] '+sendTime+' - 커넥션을 종료합니다.');
+				    webSocket.close();
+				} else {
+					console.log('[close] '+sendTime+' - 대상 커넥션이 아닙니다.');
+				}
+			};
+
+			console.log(" webSocket.onerror ");
+			webSocket.onerror = function(e) {
+				if(e.message != null)
+					console.log('[error] '+sendTime+' - ' + e.message);
+			};
+			
+		}
+		
+         
+ // ---------------------------- 데이터 보내기
+        
         /**
          * Handles 'models.gyroscope.change' event.
          *
@@ -329,6 +391,8 @@ define({
             currentGyroDataX = gyroscopeData.x;
             currentGyroDataY = gyroscopeData.y;
             currentGyroDataZ = gyroscopeData.z;
+            
+            webSocketLog("gyro,"+gyroscopeData.timeStamp+","+gyroscopeData.x+","+gyroscopeData.y+","+gyroscopeData.z);
             
         }
         
@@ -368,6 +432,8 @@ define({
             currentAccDataX = accelerationData.x;
             currentAccDataY = accelerationData.y;
             currentAccDataZ = accelerationData.z;
+            
+            webSocketLog("acc,"+accelerationData.timeStamp+","+accelerationData.x+","+accelerationData.y+","+accelerationData.z);
             
         }
 
@@ -435,6 +501,7 @@ define({
             btnEnd = document.getElementById('btn-end');
             btnEnd.addEventListener('click', onBtnEnd);
 
+            // 워치 화면 센서 값 변경
             event.on({
                 'models.gyroAndAcc.changeGyro': onGyroDataChange,
                 'models.gyroAndAcc.changeAcc': onAccDataChange

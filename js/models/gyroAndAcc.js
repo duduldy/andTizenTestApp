@@ -105,7 +105,7 @@ define({
             var currentDt = tizen.time.getCurrentDateTime();
             var yyyy = currentDt.getFullYear();
             var mm   = currentDt.getMonth()+1;
-            var dd   = currentDt.getDay();
+            var dd   = currentDt.getDate();
             var hh   = currentDt.getHours();
             var mms   = currentDt.getMinutes();
             var ss   = currentDt.getSeconds();
