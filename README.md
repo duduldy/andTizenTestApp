@@ -4,5 +4,5 @@
 [서브 프로젝트 - 웹 (tizenWeb)](https://github.com/duduldy/tizenWeb)
 
 # Info
-device : Galaxy Watch Active2
+device : Galaxy Watch Active2 </br>
 OS : wearable 5.5
